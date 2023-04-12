@@ -11,6 +11,7 @@ import Then
 
 protocol CountNumberDelegate: AnyObject {
     func countNumber()
+    func deleteNumber()
 }
 
 
@@ -38,6 +39,14 @@ final class NextViewController: UIViewController {
                      action: #selector(countButtonTapped), for: .touchUpInside)
     }
     
+    private lazy var deleteButton = UIButton().then {
+        $0.setTitle("취소하쉿 ?", for: .normal)
+        $0.backgroundColor = .systemTeal
+        $0.titleLabel?.font = .boldSystemFont(ofSize: 18)
+        $0.layer.cornerRadius = 10
+        $0.addTarget(self,
+                     action: #selector(deleteButtonTapped), for: .touchUpInside)
+    }
     
     private lazy var backButton = UIButton().then {
         $0.setTitle("뒤로가쉿 ?", for: .normal)
@@ -63,25 +72,32 @@ extension NextViewController{
     private func setLayout() {
         view.addSubview(countLabel)
         view.addSubview(countButton)
+        view.addSubview(deleteButton)
         view.addSubview(backButton)
         
-        
         countLabel.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(300)
+            make.top.equalToSuperview().offset(250)
             make.leading.equalToSuperview().offset(60)
             make.trailing.equalToSuperview().offset(-60)
             make.height.equalTo(80)
         }
         
         countButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(540)
+            make.top.equalToSuperview().offset(400)
+            make.leading.equalToSuperview().offset(80)
+            make.trailing.equalToSuperview().offset(-80)
+            make.height.equalTo(50)
+        }
+        
+        deleteButton.snp.makeConstraints { make in
+            make.top.equalTo(countButton.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(80)
             make.trailing.equalToSuperview().offset(-80)
             make.height.equalTo(50)
         }
         
         backButton.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(600)
+            make.top.equalTo(deleteButton.snp.bottom).offset(10)
             make.leading.equalToSuperview().offset(80)
             make.trailing.equalToSuperview().offset(-80)
             make.height.equalTo(50)
@@ -91,6 +107,11 @@ extension NextViewController{
     @objc
     private func countButtonTapped() {
         delegate?.countNumber()
+    }
+    
+    @objc
+    private func deleteButtonTapped() {
+        delegate?.deleteNumber()
     }
     
     @objc

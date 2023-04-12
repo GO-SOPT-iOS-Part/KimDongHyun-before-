@@ -9,13 +9,13 @@ import UIKit
 import SnapKit
 import Then
 
-final class FirstViewController: UIViewController {      //final을 사용하는 이유가 무엇일까?
+final class FirstViewController: UIViewController {
     
     var count: Int = 0
     
     private lazy var countLabel = UILabel().then {
-        $0.clipsToBounds = true //과제입니다 뭔지 알아오기 !
-        $0.text = "조금만 더 눌러바..🥹"
+        $0.clipsToBounds = true
+        $0.text = "안녕🐥 버튼을 눌러봐"
         $0.font = .systemFont(ofSize: 25)
         $0.backgroundColor = .systemGray6
         $0.textColor = .systemTeal
@@ -39,11 +39,6 @@ final class FirstViewController: UIViewController {      //final을 사용하는
     
     @objc
     func resultButtonTapped() {
-//                let viewController = NextViewController()
-//                self.present(viewController, animated: true)
-//
-//    self.present(NextViewController(), animated: true)
-        
         let nextViewController = NextViewController()
         nextViewController.delegate = self
         self.present(nextViewController, animated: true)
@@ -81,12 +76,31 @@ private extension FirstViewController{
 extension FirstViewController: CountNumberDelegate{
     func countNumber() {
         count += 1
-        if count <= 10 {
-            countLabel.text = "쉿 \(count)밖에 안눌렀습니다."
+        if count <= 5 {
+            countLabel.text = "조금만 더 눌러바..🥹"
+        }
+        else if count > 5 && count<=10 {
+            countLabel.text = "쉿 \(count)밖에 안눌렀구나?"
         }
         else if count > 10 {
-            countLabel.text = "쉿 \(count)만큼이나 눌렀군요?"
+            countLabel.text = "오! 쉿 \(count)만큼이나 눌렀어?"
         }
-        print (count)
+
+    }
+    
+    func deleteNumber() {
+        count -= 1
+        if count <= 5 {
+            countLabel.text = "조금만 더 눌러바..🥹"
+        }
+        else if count > 5 && count<=10 {
+            countLabel.text = "쉿 \(count)밖에 안눌렀구나?"
+        }
+        else if count > 10 {
+            countLabel.text = "오! 쉿 \(count)만큼이나 눌렀어?"
+        }
+        
     }
 }
+
+
