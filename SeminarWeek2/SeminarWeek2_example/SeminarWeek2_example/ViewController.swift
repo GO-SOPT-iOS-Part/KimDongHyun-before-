@@ -24,7 +24,7 @@ final class FirstViewController: UIViewController {
     }
     
     private lazy var resultButton = UIButton().then {
-        $0.setTitle("다음으로!", for: .normal)
+        $0.setTitle("다음으로!!", for: .normal)
         $0.backgroundColor = .systemTeal
         $0.titleLabel?.font = .boldSystemFont(ofSize: 22)
         $0.layer.cornerRadius = 10
